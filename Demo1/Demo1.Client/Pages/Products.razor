@@ -1,0 +1,67 @@
+﻿@page "/products"
+@rendermode InteractiveWebAssembly
+
+<PageTitle>Products</PageTitle>
+
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <div class="row d-flex flex-wrap">
+            @foreach (var item in ProductsList)
+            {
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card box border h-100 d-flex d-column" style="background-color: @(item.UnitInStock > 0 ? "#FFFFFF" : "#F8E7E6")">
+                        <div>
+                            <br />
+                            <img width="150" height="150" src="@item.ImageUrl" />
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title mb-3">@item.ProductName</h3>
+                            @if (item.UnitInStock > 0)
+                            {
+                                <h5>Delivered to you by @item.DeliveryOn.ToString("dd-MMM-yyyy")</h5>
+                            }
+                            else
+                            {
+                                <h5 style="color: #761D1A">Out of stock</h5>
+                            }
+                        </div>
+                        <h4 class="mb-3 mt-auto m-2">$@String.Format("{0:0.00}", item.UnitPrice)</h4>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    public List<Product> ProductsList { get; set; } = new List<Product>()
+    {
+        new Product() { ImageUrl = "https://th.bing.com/th/id/R.79fca9baa282dba8b4828887c7bcfceb?rik=3H46nDDHg9kXpA&riu=http%3a%2f%2fblog.oregonchai.com%2fwp-content%2fuploads%2f2014%2f04%2foregon-chai-what-is-chai-tea.jpg&ehk=Wzcl6b5Q4JlAL0Z7VHX%2bhD3W9o0ZOyxiNQKCENrvFhk%3d&risl=&pid=ImgRaw&r=0", ProductId = 1, ProductName = "Chai", UnitInStock = 18, UnitPrice = 10.5m, DeliveryOn = new DateTime(2020, 12, 11) },
+        new Product() { ImageUrl = "https://th.bing.com/th/id/OIP.G1EvvY9HEc-KzL6rjwuqkAHaE8?rs=1&pid=ImgDetMain", ProductId = 2, ProductName = "Chang", UnitInStock = 0, UnitPrice = 13m, DeliveryOn = new DateTime(2020, 12, 11) },
+        new Product() { ImageUrl = "https://th.bing.com/th/id/OIP.TfZaFpdUsOSR2DyNIkd7OgHaEo?rs=1&pid=ImgDetMain", ProductId = 3, ProductName = "Aniseed Syrup", UnitInStock = 1, UnitPrice = 6m, DeliveryOn = new DateTime(2020, 12, 11) },
+        new Product() { ImageUrl = "https://th.bing.com/th/id/OIP.9_qNJKIaLAJsJI7ejBh-JwHaHa?rs=1&pid=ImgDetMain", ProductId = 4, ProductName = "Chef Anton's Cajun Seasoning", UnitInStock = 10, UnitPrice = 11.2m, DeliveryOn = new DateTime(2020, 11, 13) },
+        new Product() { ImageUrl = "https://th.bing.com/th/id/R.c8d91ebc9b34a7929c02206ee0a35349?rik=2L2emkRZusJBbw&riu=http%3a%2f%2fecx.images-amazon.com%2fimages%2fI%2f51VP0F5XDRL._SY300_.jpg&ehk=t5YumNdP4nlX7BFoRYZEt9%2bsqi4LkBbTwOKexeCVRTA%3d&risl=&pid=ImgRaw&r=0", ProductId = 5, ProductName = "Chef Anton's Gumbo Mix", UnitInStock = 0, UnitPrice = 33m, DeliveryOn = new DateTime(2020, 11, 13) },
+        new Product() { ImageUrl = "https://www.scanspecialties.com/cdn/shop/products/jams3_1024x.png?v=1575453138", ProductId = 6, ProductName = "Grandma's Boysenberry Spread", UnitInStock = 5, UnitPrice = 22m, DeliveryOn = new DateTime(2020, 11, 13) },
+        new Product() { ImageUrl = "https://agilnuts.com/cdn/shop/products/Driedpear.jpg?v=1642846108", ProductId = 7, ProductName = "Uncle Bob's Organic Dried Pears", UnitInStock = 22, UnitPrice = 18.9m, DeliveryOn = new DateTime(2020, 11, 13) },
+        new Product() { ImageUrl = "https://www.onceuponachef.com/images/2022/11/cranberry-sauce-1-1200x1553.jpg", ProductId = 8, ProductName = "Northwoods Cranberry Sauce", UnitInStock = 3, UnitPrice = 15m, DeliveryOn = new DateTime(2020, 11, 22) },
+        new Product() { ImageUrl = "https://assets.bonappetit.com/photos/57b16bd21b33404414976871/master/pass/wagyu-steak.jpg", ProductId = 9, ProductName = "Mishi Kobe Niku", UnitInStock = 0, UnitPrice = 21m, DeliveryOn = new DateTime(2020, 11, 22) },
+        new Product() { ImageUrl = "https://theheirloompantry.co/wp-content/uploads/2022/04/ikura-salmon-roe-donburi-rice-bowl-the-heirloom-pantry-1.jpg", ProductId = 10, ProductName = "Ikura", UnitInStock = 13, UnitPrice = 8m, DeliveryOn = new DateTime(2020, 11, 22) }
+    };
+
+
+    public class Product
+    {
+        public int? ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public decimal UnitPrice { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public int UnitInStock { get; set; }
+
+        public DateTime DeliveryOn { get; set; }
+
+    }
+}
